@@ -8,6 +8,7 @@ namespace game {
 class Game {
  public:
   Game();
+  ~Game() = default;
   Game(const Game&) = delete;
   Game& operator=(const Game&) = delete;
   Game(Game&&) = delete;

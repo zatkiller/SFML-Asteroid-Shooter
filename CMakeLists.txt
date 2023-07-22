@@ -5,8 +5,8 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED on)
 
 # Find SFML shared libraries
-find_package(SFML 3 COMPONENTS 
-    System Window Graphics Network Audio REQUIRED PATHS ${SFML_SRC_PATH})
+find_package(SFML 2.6 COMPONENTS 
+    system window graphics network audio REQUIRED PATHS ${SFML_SRC_PATH})
 
 include_directories(src)
 
@@ -16,4 +16,4 @@ file(GLOB_RECURSE srcs src/*.cpp src/*.h)
 add_executable(prog ${srcs})
 
 # Link executable to required SFML libraries
-target_link_libraries(prog SFML::Graphics) 
+target_link_libraries(prog sfml-graphics) 
