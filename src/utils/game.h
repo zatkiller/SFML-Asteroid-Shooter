@@ -13,15 +13,15 @@ class Game {
   Game(Game&&) = delete;
   Game& operator=(Game&&) = delete;
 
-  void run();
+  void run(int minFramePerSeconds = 30);
 
  private:
   void processEvents();
-  void update();
+  void update(sf::Time timePerFrame);
   void render();
 
-  sf::RenderWindow _window;
-  sf::CircleShape _player;
+  sf::RenderWindow window_;
+  sf::CircleShape player_;
 };
 
 }  // namespace game

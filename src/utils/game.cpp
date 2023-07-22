@@ -2,36 +2,45 @@
 
 namespace game {
 Game::Game()
-    : _window(sf::VideoMode({800, 600}), "Game_Architecture"), _player(150) {
-  _player.setFillColor(sf::Color::Blue);
-  _player.setPosition({10, 20});
+    : window_(sf::VideoMode({800, 600}), "Game_Architecture"), player_(150) {
+  player_.setFillColor(sf::Color::Blue);
+  player_.setPosition({10, 20});
 }
 
-void Game::run() {
-  while (_window.isOpen()) {
+// Minimum time steps
+void Game::run(int minFramePerSeconds) {
+  sf::Clock clock;
+  sf::Time timeSinceLastUpdate;
+  sf::Time timePerFrame = sf::seconds(1.f / minFramePerSeconds);
+  while (window_.isOpen()) {
     processEvents();
-    update();
+    timeSinceLastUpdate = clock.restart();
+    while (timeSinceLastUpdate > timePerFrame) {
+      timeSinceLastUpdate -= timePerFrame;
+      update(timePerFrame);
+    }
+    update(timeSinceLastUpdate);
     render();
   }
 }
 
 void Game::processEvents() {
   sf::Event event;
-  while (_window.pollEvent(event)) {
+  while (window_.pollEvent(event)) {
     if ((event.type == sf::Event::Closed) or
         ((event.type == sf::Event::KeyPressed) and
          (event.key.code == sf::Keyboard::Escape))) {
-      _window.close();
+      window_.close();
     }
   }
 }
 
-void Game::update() {}
+void Game::update(sf::Time timePerFrame) {}
 
 void Game::render() {
-  _window.clear();
-  _window.draw(_player);
-  _window.display();
+  window_.clear();
+  window_.draw(player_);
+  window_.display();
 }
 
 }  // namespace game
