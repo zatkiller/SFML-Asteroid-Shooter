@@ -8,7 +8,7 @@ namespace game {
 
 Player::Player() : shape_(sf::Vector2f(32, 32)) {
   shape_.setFillColor(sf::Color::Blue);
-  shape_.setOrigin({16, 16});
+  shape_.setOrigin(16, 16);
 }
 
 void Player::update(sf::Time deltaTime) {
@@ -24,6 +24,7 @@ void Player::update(sf::Time deltaTime) {
     velocity_ +=
         sf::Vector2f(std::cos(angle), std::sin(angle)) * 60.f * seconds;
   }
+
   shape_.move(seconds * velocity_);
 }
 

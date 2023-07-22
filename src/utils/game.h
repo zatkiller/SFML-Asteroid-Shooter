@@ -3,6 +3,8 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 
+#include "player.h"
+
 namespace game {
 
 class Game {
@@ -22,7 +24,7 @@ class Game {
   void render();
 
   sf::RenderWindow window_;
-  sf::CircleShape player_;
+  Player player_;
 };
 
 }  // namespace game

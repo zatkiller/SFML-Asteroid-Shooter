@@ -1,10 +1,8 @@
 #include "game.h"
 
 namespace game {
-Game::Game()
-    : window_(sf::VideoMode({800, 600}), "Game_Architecture"), player_(150) {
-  player_.setFillColor(sf::Color::Blue);
-  player_.setPosition({10, 20});
+Game::Game() : window_(sf::VideoMode(800, 600), "Game_Architecture") {
+  player_.setPosition(10, 20);
 }
 
 // Minimum time steps
@@ -27,10 +25,24 @@ void Game::run(int minFramePerSeconds) {
 void Game::processEvents() {
   sf::Event event;
   while (window_.pollEvent(event)) {
-    if ((event.type == sf::Event::Closed) or
-        ((event.type == sf::Event::KeyPressed) and
-         (event.key.code == sf::Keyboard::Escape))) {
+    if (event.type == sf::Event::Closed)
       window_.close();
+    else if (event.type == sf::Event::KeyPressed) {
+      if (event.key.code == sf::Keyboard::Escape)
+        window_.close();
+      else if (event.key.code == sf::Keyboard::Up)
+        player_.isMoving = true;
+      else if (event.key.code == sf::Keyboard::Left)
+        player_.rotation = -1;
+      else if (event.key.code == sf::Keyboard::Right)
+        player_.rotation = 1;
+    } else if (event.type == sf::Event::KeyReleased) {
+      if (event.key.code == sf::Keyboard::Up)
+        player_.isMoving = false;
+      else if (event.key.code == sf::Keyboard::Left)
+        player_.rotation = 0;
+      else if (event.key.code == sf::Keyboard::Right)
+        player_.rotation = 0;
     }
   }
 }
