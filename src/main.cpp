@@ -1,4 +1,4 @@
-#include <utils/game.h>
+#include <model/game.h>
 
 int main(int argc, char* argv[]) {
   game::Game game;
