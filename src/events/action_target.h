@@ -40,7 +40,7 @@ class ActionTarget {
 
   void bind(const T& key, const FuncType& callback) {
     const Action& action = actionMap_.get(key);
-    if (action.type_ & Action::Type::RealTime)
+    if (action.type_ & static_cast<int>(Action::Type::RealTime))
       realTimeEvents_.emplace_back(key, callback);
     else
       eventsPoll_.emplace_back(key, callback);
@@ -52,7 +52,7 @@ class ActionTarget {
     };
 
     const Action& action = actionMap_.get(key);
-    if (action.type_ & Action::Type::RealTime)
+    if (action.type_ & static_cast<int>(Action::Type::RealTime))
       realTimeEvents_.remove_if(remove_func);
     else
       eventsPoll_.remove_if(remove_func);

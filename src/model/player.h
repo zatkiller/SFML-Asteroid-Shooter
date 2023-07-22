@@ -19,7 +19,7 @@ class Player : public sf::Drawable, public ActionTarget<int> {
   void setPosition(Args&&... args) {
     // setPosition for sf::Transformable takes either 2 float numbers or
     // sf::Vector2f as the parameters
-    shape_.setPosition(std::forward<Args>(args)...);
+    ship_.setPosition(std::forward<Args>(args)...);
   }
 
   void update(sf::Time deltaTime);
@@ -32,7 +32,7 @@ class Player : public sf::Drawable, public ActionTarget<int> {
   bool isMoving_;
   int rotation_;
 
-  sf::RectangleShape shape_;
+  sf::Sprite ship_;
   sf::Vector2f velocity_;
 
   static ActionMap<int> playerInputs_;

@@ -5,16 +5,18 @@
 namespace game {
 class Action {
  public:
-  enum Type {
+  enum class Type : int {
     RealTime = 1,
     Pressed = 1 << 1,
     Released = 1 << 2,
   };
 
   Action(const sf::Keyboard::Key& key,
-         int type = Type::RealTime | Type::Pressed);
+         int type = static_cast<int>(Type::RealTime) |
+                    static_cast<int>(Type::Pressed));
   Action(const sf::Mouse::Button& button,
-         int type = Type::RealTime | Type::Pressed);
+         int type = static_cast<int>(Type::RealTime) |
+                    static_cast<int>(Type::Pressed));
 
   bool test() const;
   bool operator==(const sf::Event& event) const;
