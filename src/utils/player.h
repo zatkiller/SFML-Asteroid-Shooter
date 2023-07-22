@@ -23,6 +23,8 @@ class Player : public sf::Drawable {
   }
 
   void update(sf::Time deltaTime);
+  void processEvents();
+
   bool isMoving;
   int rotation;
 

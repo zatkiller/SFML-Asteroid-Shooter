@@ -32,4 +32,11 @@ void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const {
   target.draw(shape_, states);
 }
 
+void Player::processEvents() {
+  isMoving = sf::Keyboard::isKeyPressed(sf::Keyboard::Up);
+  rotation = 0;
+  rotation -= sf::Keyboard::isKeyPressed(sf::Keyboard::Left);
+  rotation += sf::Keyboard::isKeyPressed(sf::Keyboard::Right);
+}
+
 }  // namespace game
