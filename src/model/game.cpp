@@ -2,7 +2,7 @@
 
 namespace game {
 Game::Game() : window_(sf::VideoMode(800, 600), "Game_Architecture") {
-  player_.setPosition(10, 20);
+  player_.setPosition(100, 100);
 }
 
 // Minimum time steps
@@ -10,6 +10,7 @@ void Game::run(int minFramePerSeconds) {
   sf::Clock clock;
   sf::Time timeSinceLastUpdate;
   sf::Time timePerFrame = sf::seconds(1.f / minFramePerSeconds);
+
   while (window_.isOpen()) {
     processEvents();
     timeSinceLastUpdate = clock.restart();
@@ -35,7 +36,7 @@ void Game::processEvents() {
   player_.processEvents();
 }
 
-void Game::update(sf::Time timePerFrame) {}
+void Game::update(sf::Time deltaTime) { player_.update(deltaTime); }
 
 void Game::render() {
   window_.clear();
