@@ -2,11 +2,12 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "events/action_target.h"
 #include "player.h"
 
 namespace game {
 
-class Player : public sf::Drawable {
+class Player : public sf::Drawable, public ActionTarget {
  public:
   Player();
   ~Player() = default;
@@ -25,12 +26,12 @@ class Player : public sf::Drawable {
   void update(sf::Time deltaTime);
   void processEvents();
 
-  bool isMoving;
-  int rotation;
-
  private:
   virtual void draw(sf::RenderTarget& target,
                     sf::RenderStates states) const override;
+
+  bool isMoving_;
+  int rotation_;
 
   sf::RectangleShape shape_;
   sf::Vector2f velocity_;
