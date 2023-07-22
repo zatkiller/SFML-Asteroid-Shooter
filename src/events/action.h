@@ -1,3 +1,5 @@
+#pragma once
+
 #include <SFML/Window.hpp>
 
 namespace game {
@@ -19,6 +21,7 @@ class Action {
   bool operator==(const Action& other) const;
 
  private:
+  template <typename T>
   friend class ActionTarget;
   sf::Event event_;
   int type_;

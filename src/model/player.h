@@ -3,11 +3,10 @@
 #include <SFML/Graphics.hpp>
 
 #include "events/action_target.h"
-#include "player.h"
 
 namespace game {
 
-class Player : public sf::Drawable, public ActionTarget {
+class Player : public sf::Drawable, public ActionTarget<int> {
  public:
   Player();
   ~Player() = default;
@@ -35,6 +34,8 @@ class Player : public sf::Drawable, public ActionTarget {
 
   sf::RectangleShape shape_;
   sf::Vector2f velocity_;
+
+  static ActionMap<int> playerInputs_;
 };
 
 }  // namespace game

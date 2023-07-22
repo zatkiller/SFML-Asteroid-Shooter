@@ -1,23 +1,24 @@
 #include "player.h"
 
-#include <math.h>
-
 #include <cmath>
+
+#include "configs/configs.h"
 
 namespace game {
 
 Player::Player()
-    : shape_(sf::Vector2f(32, 32)), isMoving_(false), rotation_(0) {
+    : ActionTarget(Configs::playerInputs),
+      shape_(sf::Vector2f(32, 32)),
+      isMoving_(false),
+      rotation_(0) {
   shape_.setFillColor(sf::Color::Blue);
   shape_.setOrigin(16, 16);
 
-  bind(Action(sf::Keyboard::Up),
+  bind(Configs::PlayerInputs::Up,
        [this](const sf::Event&) { isMoving_ = true; });
-
-  bind(Action(sf::Keyboard::Left),
+  bind(Configs::PlayerInputs::Left,
        [this](const sf::Event&) { rotation_ -= 1; });
-
-  bind(Action(sf::Keyboard::Right),
+  bind(Configs::PlayerInputs::Right,
        [this](const sf::Event&) { rotation_ += 1; });
 }
 
