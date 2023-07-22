@@ -18,7 +18,9 @@ bool ActionTarget::processEvent(const sf::Event& event) const {
 
 void ActionTarget::processEvents() const {
   for (auto& action : realTimeEvents_) {
-    if (action.first.test()) action.second(action.first.event_);
+    if (action.first.test()) {
+      action.second(action.first.event_);
+    }
   }
 }
 
@@ -30,8 +32,7 @@ void ActionTarget::bind(const Action& action, const FuncType& callback) {
 }
 
 void ActionTarget::unbind(const Action& action) {
-  auto remove_func =
-      [&action](const std::pair<Action, FuncType>& pair) -> bool {
+  auto remove_func = [&action](const std::pair<Action, FuncType>& pair) {
     return pair.first == action;
   };
 
