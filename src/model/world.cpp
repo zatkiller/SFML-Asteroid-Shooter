@@ -49,7 +49,7 @@ int World::size() { return entities_.size() + entitiesTmp_.size(); }
 int World::getX() const { return x_; }
 int World::getY() const { return y_; }
 
-const std::list<std::unique_ptr<World::Entity>>& World::getEntities() const {
+const std::list<std::unique_ptr<Entity>>& World::getEntities() const {
   return entities_;
 }
 

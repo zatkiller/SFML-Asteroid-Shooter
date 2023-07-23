@@ -2,9 +2,11 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "world.h"
+#include "configs/configs.h"
 
 namespace game {
+
+class World;
 
 class Entity : public sf::Drawable {
  public:
@@ -19,7 +21,9 @@ class Entity : public sf::Drawable {
   const sf::Vector2f& getPosition() const;
 
   template <typename... Args>
-  void setPosition(Args&&... args);
+  void setPosition(Args&&... args) {
+    sprite_.setPosition(std::forward<Args>(args)...);
+  }
 
   virtual bool hasCollided(const Entity& other) const = 0;
 

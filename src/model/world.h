@@ -5,29 +5,16 @@
 #include <list>
 #include <memory>
 
-#include "configs/configs.h"
+#include "entity.h"
 
 namespace game {
+
 class World : public sf::Drawable {
-  struct Entity : public sf::Drawable {
-    bool hasCollided(const Entity& other) const { return false; }
+  bool isAlive() { return true; }
 
-    void draw(sf::RenderTarget& target,
-              sf::RenderStates states) const override {}
+  void onDestroy() { return; }
 
-    void update(sf::Time deltaTime) {}
-
-    template <typename... Args>
-    void setPosition(Args&&... args) {
-      return;
-    }
-
-    bool isAlive() { return true; }
-
-    void onDestroy() { return; }
-
-    sf::Vector2f getPosition() { return {10, 10}; }
-  };
+  sf::Vector2f getPosition() { return {10, 10}; }
 
  public:
   World(float x, float y);
