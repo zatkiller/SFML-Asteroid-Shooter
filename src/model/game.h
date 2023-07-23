@@ -22,7 +22,7 @@ class Game {
   void update(sf::Time timePerFrame);
   void render();
 
-  const int x_, y_;
+  int x_, y_;
   sf::RenderWindow window_;
   Player player_;
 };

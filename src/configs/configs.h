@@ -19,6 +19,10 @@ class Configs {
     Player,
   };
 
+  enum class Sounds : int {
+    PLACEHOLDER,
+  };
+
   static ActionMap<int> playerInputs;
   static ResourceManager<sf::Texture, int> textures;
 
