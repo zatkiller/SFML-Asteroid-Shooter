@@ -1,5 +1,6 @@
 #pragma once
 
+#include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 
 #include "events/action_map.h"
@@ -25,6 +26,7 @@ class Configs {
 
   static ActionMap<int> playerInputs;
   static ResourceManager<sf::Texture, int> textures;
+  static ResourceManager<sf::SoundBuffer, int> sounds;
 
   Configs() = delete;
   ~Configs() = default;
@@ -38,6 +40,7 @@ class Configs {
  private:
   static void initPlayerInputs();
   static void initTextures();
+  static void initSounds();
 };
 
 }  // namespace game

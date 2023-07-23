@@ -29,13 +29,14 @@ void World::add(std::unique_ptr<Entity> entity) {
   entitiesTmp_.push_back(std::move(entity));
 }
 
-// void World::add(Configs::Sounds sound_id) {
-//   std::unique_ptr<sf::Sound> sound =
-//       std::make_unique<sf::Sound>(Configuration::sounds.get(sound_id));
-//   sound->setAttenuation(0);
-//   sound->play();
-//   sounds_.emplace_back(std::move(sound));
-// }
+void World::add(Configs::Sounds id) {
+  auto sound =
+      std::make_unique<sf::Sound>(Configs::sounds.get(static_cast<int>(id)));
+
+  sound->setAttenuation(0);
+  sound->play();
+  sounds_.emplace_back(std::move(sound));
+}
 
 bool World::isCollide(const Entity& other) {
   for (auto& entity : entities_)

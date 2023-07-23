@@ -16,4 +16,4 @@ file(GLOB_RECURSE srcs src/*.cpp src/*.h)
 add_executable(prog ${srcs})
 
 # Link executable to required SFML libraries
-target_link_libraries(prog sfml-graphics) 
+target_link_libraries(prog sfml-graphics sfml-audio) 

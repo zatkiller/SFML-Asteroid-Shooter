@@ -41,7 +41,7 @@ class World : public sf::Drawable {
   void clear();
   bool isCollide(const Entity& other);
   int size();
-  //   void add(Configs::Sounds sound_id);
+  void add(Configs::Sounds id);
   const std::list<std::unique_ptr<Entity>>& getEntities() const;
   int getX() const;
   int getY() const;

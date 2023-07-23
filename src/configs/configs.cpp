@@ -6,10 +6,12 @@ namespace game {
 
 ActionMap<int> Configs::playerInputs;
 ResourceManager<sf::Texture, int> Configs::textures;
+ResourceManager<sf::SoundBuffer, int> Configs::sounds;
 
 void Configs::initialize() {
   initPlayerInputs();
   initTextures();
+  initSounds();
 }
 
 void Configs::initPlayerInputs() {
@@ -24,5 +26,7 @@ void Configs::initPlayerInputs() {
 void Configs::initTextures() {
   textures.load(static_cast<int>(Textures::Player), "media/Player/Ship.png");
 }
+
+void Configs::initSounds() { return; }
 
 }  // namespace game
