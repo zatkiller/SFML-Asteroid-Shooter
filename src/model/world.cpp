@@ -38,9 +38,9 @@ void World::add(Configs::Sounds id) {
   sounds_.emplace_back(std::move(sound));
 }
 
-bool World::isCollide(const Entity& other) {
+bool World::hasCollided(const Entity& other) {
   for (auto& entity : entities_)
-    if (other.isCollide(*entity.get())) return true;
+    if (other.hasCollided(*entity.get())) return true;
 
   return false;
 }
@@ -83,9 +83,9 @@ void World::update(sf::Time deltaTime) {
 
     for (; it_j != end; ++it_j) {
       auto& entity_j = *it_j;
-      if (entity_i->isAlive() and entity_i->isCollide(*entity_j.get()))
+      if (entity_i->isAlive() and entity_i->hasCollided(*entity_j.get()))
         entity_i->onDestroy();
-      if (entity_j->isAlive() and entity_j->isCollide(*entity_i.get()))
+      if (entity_j->isAlive() and entity_j->hasCollided(*entity_i.get()))
         entity_j->onDestroy();
     }
 

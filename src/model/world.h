@@ -10,7 +10,7 @@
 namespace game {
 class World : public sf::Drawable {
   struct Entity : public sf::Drawable {
-    bool isCollide(const Entity& other) const { return false; }
+    bool hasCollided(const Entity& other) const { return false; }
 
     void draw(sf::RenderTarget& target,
               sf::RenderStates states) const override {}
@@ -39,7 +39,7 @@ class World : public sf::Drawable {
 
   void add(std::unique_ptr<Entity> entity);
   void clear();
-  bool isCollide(const Entity& other);
+  bool hasCollided(const Entity& other);
   int size();
   void add(Configs::Sounds id);
   const std::list<std::unique_ptr<Entity>>& getEntities() const;
