@@ -20,6 +20,8 @@ Player::Player()
        [this](const sf::Event&) { rotation_ += 1; });
 }
 
+const sf::Vector2f& Player::getPosition() const { return ship_.getPosition(); }
+
 void Player::update(sf::Time deltaTime) {
   float seconds = deltaTime.asSeconds();
 

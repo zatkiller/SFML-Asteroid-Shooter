@@ -1,7 +1,8 @@
 #include "game.h"
 
 namespace game {
-Game::Game() : window_(sf::VideoMode(800, 600), "Game_Architecture") {
+Game::Game(int x, int y)
+    : window_(sf::VideoMode(x, y), "Asteroid_Shooter_SFML"), x_(x), y_(y) {
   player_.setPosition(100, 100);
 }
 
@@ -36,7 +37,26 @@ void Game::processEvents() {
   player_.processEvents();
 }
 
-void Game::update(sf::Time deltaTime) { player_.update(deltaTime); }
+void Game::update(sf::Time deltaTime) {
+  player_.update(deltaTime);
+
+  sf::Vector2f pos = player_.getPosition();
+
+  if (pos.x < 0) {
+    pos.x = x_;
+    pos.y = y_ - pos.y;
+  } else if (pos.x > x_) {
+    pos.x = 0;
+    pos.y = y_ - pos.y;
+  }
+
+  if (pos.y < 0)
+    pos.y = y_;
+  else if (pos.y > y_)
+    pos.y = 0;
+
+  player_.setPosition(pos);
+}
 
 void Game::render() {
   window_.clear();

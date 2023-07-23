@@ -8,7 +8,7 @@ namespace game {
 
 class Game {
  public:
-  Game();
+  Game(int x = 800, int y = 600);
   ~Game() = default;
   Game(const Game&) = delete;
   Game& operator=(const Game&) = delete;
@@ -22,6 +22,7 @@ class Game {
   void update(sf::Time timePerFrame);
   void render();
 
+  const int x_, y_;
   sf::RenderWindow window_;
   Player player_;
 };

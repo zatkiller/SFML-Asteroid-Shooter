@@ -21,6 +21,7 @@ class Player : public sf::Drawable, public ActionTarget<int> {
     // sf::Vector2f as the parameters
     ship_.setPosition(std::forward<Args>(args)...);
   }
+  const sf::Vector2f& getPosition() const;
 
   void update(sf::Time deltaTime);
   void processEvents();
