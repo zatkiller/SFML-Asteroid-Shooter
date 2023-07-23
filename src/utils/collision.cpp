@@ -11,7 +11,7 @@ float getRadius(const sf::Sprite& s) {
   return (rect.x + rect.y) / 4;
 }
 
-bool circleTest(const sf::Sprite& first, const sf::Sprite& second) {
+bool collisionTest(const sf::Sprite& first, const sf::Sprite& second) {
   float radius1 = getRadius(first), radius2 = getRadius(second);
 
   float xd = first.getPosition().x - second.getPosition().x;

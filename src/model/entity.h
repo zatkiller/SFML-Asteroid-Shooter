@@ -7,7 +7,6 @@
 namespace game {
 
 class World;
-
 class Entity : public sf::Drawable {
  public:
   Entity(Configs::Textures tex_id, World& world);
@@ -26,11 +25,13 @@ class Entity : public sf::Drawable {
   }
 
   virtual bool hasCollided(const Entity& other) const = 0;
-
   virtual void update(sf::Time deltaTime) = 0;
   virtual void onDestroy();
 
  protected:
+  friend class Player;
+  friend class ShootPlayer;
+
   sf::Sprite sprite_;
   sf::Vector2f impulse_;
   World& world_;

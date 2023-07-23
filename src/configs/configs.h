@@ -14,19 +14,23 @@ class Configs {
     Up,
     Left,
     Right,
+    Shoot,
+    Hyperspace,
   };
 
-  enum class Textures : int {
-    Player,
-  };
+  enum class Textures : int { Player, ShootPlayer };
 
   enum class Sounds : int {
-    PLACEHOLDER,
+    Boom,
+    Jump,
+    LaserPlayer,
   };
 
   static ActionMap<int> playerInputs;
   static ResourceManager<sf::Texture, int> textures;
   static ResourceManager<sf::SoundBuffer, int> sounds;
+
+  static int lives;
 
   Configs() = delete;
   ~Configs() = default;

@@ -2,9 +2,11 @@
 
 namespace game {
 Game::Game(int x, int y)
-    : window_(sf::VideoMode(x, y), "Asteroid_Shooter_SFML"), x_(x), y_(y) {
-  player_.setPosition(100, 100);
-}
+    : window_(sf::VideoMode(x, y), "Asteroid_Shooter_SFML"),
+      x_(x),
+      y_(y),
+      world_(x, y),
+      player_(world_) {}
 
 // Minimum time steps
 void Game::run(int minFramePerSeconds) {

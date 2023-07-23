@@ -3,6 +3,7 @@
 #include <SFML/Window.hpp>
 
 #include "player.h"
+#include "world.h"
 
 namespace game {
 
@@ -25,6 +26,7 @@ class Game {
   int x_, y_;
   sf::RenderWindow window_;
   Player player_;
+  World world_;
 };
 
 }  // namespace game
