@@ -60,7 +60,7 @@ void Game::update(sf::Time deltaTime) {
     nextSaucer_ = sf::seconds(random(10.f, 60.f - Configs::level * 2));
   }
 
-  if (world_.size() <= 1) {
+  if (world_.size() <= 1 && Configs::player) {
     ++Configs::level;
     initLevel();
   }
