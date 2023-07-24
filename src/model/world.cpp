@@ -25,7 +25,7 @@ World& World::operator=(World&& other) {
   return *this;
 }
 
-void World::add(std::unique_ptr<Entity> entity) {
+void World::add(std::shared_ptr<Entity> entity) {
   entitiesTmp_.push_back(std::move(entity));
 }
 
@@ -49,7 +49,7 @@ int World::size() { return entities_.size() + entitiesTmp_.size(); }
 int World::getX() const { return x_; }
 int World::getY() const { return y_; }
 
-const std::list<std::unique_ptr<Entity>>& World::getEntities() const {
+const std::list<std::shared_ptr<Entity>>& World::getEntities() const {
   return entities_;
 }
 

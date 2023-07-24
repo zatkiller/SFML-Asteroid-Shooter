@@ -6,7 +6,7 @@ Game::Game(int x, int y)
       x_(x),
       y_(y),
       world_(x, y),
-      player_(world_) {}
+      player_(std::make_shared<Player>(world_)) {}
 
 // Minimum time steps
 void Game::run(int minFramePerSeconds) {
@@ -36,33 +36,22 @@ void Game::processEvents() {
       if (event.key.code == sf::Keyboard::Escape) window_.close();
     }
   }
-  player_.processEvents();
+  player_->processEvents();
 }
 
 void Game::update(sf::Time deltaTime) {
-  player_.update(deltaTime);
-
-  sf::Vector2f pos = player_.getPosition();
-
-  if (pos.x < 0) {
-    pos.x = x_;
-    pos.y = y_ - pos.y;
-  } else if (pos.x > x_) {
-    pos.x = 0;
-    pos.y = y_ - pos.y;
+  if (start) {
+    start = false;
+    player_->setPosition(world_.getX() / 2, world_.getY() / 2);
+    world_.add(player_);
   }
 
-  if (pos.y < 0)
-    pos.y = y_;
-  else if (pos.y > y_)
-    pos.y = 0;
-
-  player_.setPosition(pos);
+  world_.update(deltaTime);
 }
 
 void Game::render() {
   window_.clear();
-  window_.draw(player_);
+  window_.draw(*player_.get());
   window_.display();
 }
 

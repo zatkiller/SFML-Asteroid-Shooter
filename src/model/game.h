@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/Window.hpp>
+#include <memory>
 
 #include "player.h"
 #include "world.h"
@@ -23,9 +24,10 @@ class Game {
   void update(sf::Time timePerFrame);
   void render();
 
+  bool start = true;
   int x_, y_;
   sf::RenderWindow window_;
-  Player player_;
+  std::shared_ptr<Player> player_;
   World world_;
 };
 

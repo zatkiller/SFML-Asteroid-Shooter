@@ -16,6 +16,12 @@ Player::Player(World& world)
       ActionTarget(Configs::playerInputs),
       isMoving_(false),
       rotation_(0) {
+  bind(static_cast<int>(Configs::PlayerInputs::Up),
+       [this](const sf::Event&) { isMoving_ = true; });
+  bind(static_cast<int>(Configs::PlayerInputs::Left),
+       [this](const sf::Event&) { rotation_ -= 1; });
+  bind(static_cast<int>(Configs::PlayerInputs::Right),
+       [this](const sf::Event&) { rotation_ += 1; });
   bind(static_cast<int>(Configs::PlayerInputs::Shoot),
        [this](const sf::Event&) { shoot(); });
   bind(static_cast<int>(Configs::PlayerInputs::Hyperspace),
@@ -46,7 +52,7 @@ bool Player::hasCollided(const Entity& other) const {
 
 void Player::shoot() {
   if (timeSinceLastShoot_ > sf::seconds(0.3)) {
-    auto shootPlayer = std::make_unique<ShootPlayer>(*this);
+    auto shootPlayer = std::make_shared<ShootPlayer>(*this);
     world_.add(std::move(shootPlayer));
     timeSinceLastShoot_ = sf::Time::Zero;
   }

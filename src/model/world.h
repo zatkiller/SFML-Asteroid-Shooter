@@ -24,12 +24,12 @@ class World : public sf::Drawable {
   World(World&&);
   World& operator=(World&&);
 
-  void add(std::unique_ptr<Entity> entity);
+  void add(std::shared_ptr<Entity> entity);
   void clear();
   bool hasCollided(const Entity& other);
   int size();
   void add(Configs::Sounds id);
-  const std::list<std::unique_ptr<Entity>>& getEntities() const;
+  const std::list<std::shared_ptr<Entity>>& getEntities() const;
   int getX() const;
   int getY() const;
   void update(sf::Time deltaTime);
@@ -37,8 +37,8 @@ class World : public sf::Drawable {
  private:
   int x_, y_;
 
-  std::list<std::unique_ptr<Entity>> entities_;
-  std::list<std::unique_ptr<Entity>> entitiesTmp_;
+  std::list<std::shared_ptr<Entity>> entities_;
+  std::list<std::shared_ptr<Entity>> entitiesTmp_;
   std::list<std::unique_ptr<sf::Sound>> sounds_;
 
   virtual void draw(sf::RenderTarget& target,
