@@ -1,5 +1,6 @@
 #include "world.h"
 
+#include "iostream"
 namespace game {
 
 World::World(float x, float y) : x_(x), y_(y) {}
@@ -75,14 +76,13 @@ void World::update(sf::Time deltaTime) {
   }
 
   const auto end = entities_.end();
-
   for (auto it_i = entities_.begin(); it_i != end; ++it_i) {
-    auto& entity_i = *it_i;
-    auto& it_j = it_i;
+    auto entity_i = *it_i;
+    auto it_j = it_i;
     it_j++;
 
     for (; it_j != end; ++it_j) {
-      auto& entity_j = *it_j;
+      auto entity_j = *it_j;
       if (entity_i->isAlive() and entity_i->hasCollided(*entity_j.get()))
         entity_i->onDestroy();
       if (entity_j->isAlive() and entity_j->hasCollided(*entity_i.get()))
