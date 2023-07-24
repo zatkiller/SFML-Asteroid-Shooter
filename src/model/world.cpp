@@ -11,6 +11,12 @@ World::World(World&& other)
       entitiesTmp_(std::move(other.entitiesTmp_)),
       sounds_(std::move(other.sounds_)) {}
 
+void World::clear() {
+  entities_.clear();
+  entitiesTmp_.clear();
+  sounds_.clear();
+}
+
 World& World::operator=(World&& other) {
   if (this == &other) {
     return *this;
@@ -82,24 +88,25 @@ void World::update(sf::Time deltaTime) {
 
     for (; it_j != end; ++it_j) {
       auto entity_j = *it_j;
-      if (entity_i->isAlive() and entity_i->hasCollided(*entity_j.get()))
+      if (entity_i->isAlive() and entity_i->hasCollided(*entity_j.get())) {
         entity_i->onDestroy();
+      }
       if (entity_j->isAlive() and entity_j->hasCollided(*entity_i.get()))
         entity_j->onDestroy();
     }
-
-    for (auto it = entities_.begin(); it != entities_.end();) {
-      if (!(*it)->isAlive()) {
-        it = entities_.erase(it);
-      } else {
-        ++it;
-      }
-    }
-
-    sounds_.remove_if([](const std::unique_ptr<sf::Sound>& sound) -> bool {
-      return sound->getStatus() != sf::SoundSource::Status::Playing;
-    });
   }
+
+  for (auto it = entities_.begin(); it != entities_.end();) {
+    if (!(*it)->isAlive()) {
+      it = entities_.erase(it);
+    } else {
+      ++it;
+    }
+  }
+
+  sounds_.remove_if([](const std::unique_ptr<sf::Sound>& sound) -> bool {
+    return sound->getStatus() != sf::SoundSource::Status::Playing;
+  });
 }
 
 void World::draw(sf::RenderTarget& target, sf::RenderStates states) const {

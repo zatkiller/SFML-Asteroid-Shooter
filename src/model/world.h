@@ -12,8 +12,6 @@ namespace game {
 class World : public sf::Drawable {
   bool isAlive() { return true; }
 
-  void onDestroy() { return; }
-
   sf::Vector2f getPosition() { return {10, 10}; }
 
  public:

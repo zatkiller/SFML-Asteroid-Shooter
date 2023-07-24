@@ -1,12 +1,11 @@
 #include "game.h"
 
+#include "saucer.h"
+#include "utils/random.h"
+
 namespace game {
 Game::Game(int x, int y)
-    : window_(sf::VideoMode(x, y), "Asteroid_Shooter_SFML"),
-      x_(x),
-      y_(y),
-      world_(x, y),
-      player_(std::make_shared<Player>(world_)) {}
+    : window_(sf::VideoMode(x, y), "Asteroid_Shooter_SFML"), world_(x, y) {}
 
 // Minimum time steps
 void Game::run(int minFramePerSeconds) {
@@ -52,12 +51,25 @@ void Game::update(sf::Time deltaTime) {
   }
 
   world_.update(deltaTime);
+
+  nextSaucer_ -= deltaTime;
+
+  if (nextSaucer_ < sf::Time::Zero) {
+    Saucer::newSaucer(world_);
+    nextSaucer_ = sf::seconds(random(10.f, 60.f - Configs::level * 2));
+  }
 }
 
 void Game::render() {
   window_.clear();
   window_.draw(world_);
   window_.display();
+}
+
+void Game::reset() {
+  nextSaucer_ = sf::seconds(random(5.f, 6.f - Configs::level * 2));
+  world_.clear();
+  Configs::player = nullptr;
 }
 
 }  // namespace game

@@ -1,11 +1,9 @@
 #include "saucer.h"
 
-#include "enemy.h"
 #include "entity.h"
 #include "shoot.h"
 #include "utils/collision.h"
 #include "utils/random.h"
-#include "world.h"
 
 namespace game {
 

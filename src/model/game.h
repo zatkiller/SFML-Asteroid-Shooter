@@ -23,12 +23,14 @@ class Game {
   void processEvents();
   void update(sf::Time timePerFrame);
   void render();
+  void reset();
 
   bool start = true;
-  int x_, y_;
   sf::RenderWindow window_;
-  std::shared_ptr<Player> player_;
   World world_;
+
+  sf::Time nextSaucer_;
+  sf::Text txt_;
 };
 
 }  // namespace game
