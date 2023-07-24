@@ -61,7 +61,7 @@ void Player::shoot() {
 void Player::onDestroy() {
   Entity::onDestroy();
   Configs::lives--;
-  world_.add(Configs::Sounds::Boom);
+  world_.add(Configs::Sounds::Boom1);
 }
 
 void Player::goToHyperspace() {

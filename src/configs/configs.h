@@ -8,6 +8,7 @@
 
 namespace game {
 
+class Player;
 class Configs {
  public:
   enum class PlayerInputs : int {
@@ -21,12 +22,19 @@ class Configs {
   enum class Textures : int {
     Player,
     ShootPlayer,
+    ShootSaucer,
+    SmallSaucer,
+    BigSaucer
   };
 
   enum class Sounds : int {
-    Boom,
+    Boom1,
+    Boom2,
     Jump,
     LaserPlayer,
+    LaserEnemy,
+    SaucerSpawn1,
+    SaucerSpawn2,
   };
 
   static ActionMap<int> playerInputs;
@@ -45,7 +53,10 @@ class Configs {
 
   static void initialize();
 
+  static int getScore();
   static void addScore(int score);
+
+  static std::shared_ptr<Player> player;
 
  private:
   static int score_;

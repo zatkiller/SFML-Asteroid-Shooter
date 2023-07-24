@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "player.h"
+#include "saucer.h"
 
 namespace game {
 
@@ -35,6 +36,19 @@ class ShootPlayer : public Shoot {
 
   ShootPlayer(Player& from);
   virtual bool hasCollided(const Entity& other) const override;
+};
+
+class SmallSaucer;
+class ShootSaucer : public Shoot {
+ public:
+  ShootSaucer(SmallSaucer& from);
+  ~ShootSaucer() = default;
+  ShootSaucer(const ShootSaucer&) = delete;
+  ShootSaucer& operator=(const ShootSaucer&) = delete;
+  ShootSaucer(ShootSaucer&&) = delete;
+  ShootSaucer& operator=(ShootSaucer&&) = delete;
+
+  virtual bool hasCollided(const Entity& other) const;
 };
 
 }  // namespace game

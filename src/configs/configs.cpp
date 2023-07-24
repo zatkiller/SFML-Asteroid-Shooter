@@ -9,6 +9,7 @@ ResourceManager<sf::Texture, int> Configs::textures;
 ResourceManager<sf::SoundBuffer, int> Configs::sounds;
 
 sf::Text Configs::score_txt_;
+std::shared_ptr<Player> Configs::player = nullptr;
 
 int Configs::lives = 0;
 int Configs::level = 0;
@@ -42,7 +43,7 @@ void Configs::initTextures() {
 
 void Configs::initSounds() {
   sounds.load(static_cast<int>(Sounds::LaserPlayer), "media/sounds/laser1.ogg");
-  sounds.load(static_cast<int>(Sounds::Boom), "media/sounds/boom.flac");
+  sounds.load(static_cast<int>(Sounds::Boom1), "media/sounds/boom.flac");
   sounds.load(static_cast<int>(Sounds::Jump), "media/sounds/hyperspace.flac");
 }
 
@@ -52,5 +53,7 @@ void Configs::addScore(int score) {
   lives += score_ / 10000 - old / 10000;
   score_txt_.setString(std::to_string(score_));
 }
+
+int Configs::getScore() { return score_; }
 
 }  // namespace game

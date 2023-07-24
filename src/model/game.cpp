@@ -35,16 +35,20 @@ void Game::processEvents() {
     {
       if (event.key.code == sf::Keyboard::Escape) window_.close();
     }
-    player_->processEvent(event);
+    if (Configs::player) {
+      Configs::player->processEvent(event);
+    }
   }
-  player_->processEvents();
+  if (Configs::player) {
+    Configs::player->processEvents();
+  }
 }
 
 void Game::update(sf::Time deltaTime) {
-  if (start) {
-    start = false;
-    player_->setPosition(world_.getX() / 2, world_.getY() / 2);
-    world_.add(player_);
+  if (!Configs::player) {
+    Configs::player = std::make_shared<Player>(world_);
+    Configs::player->setPosition(world_.getX() / 2, world_.getY() / 2);
+    world_.add(Configs::player);
   }
 
   world_.update(deltaTime);
@@ -52,7 +56,7 @@ void Game::update(sf::Time deltaTime) {
 
 void Game::render() {
   window_.clear();
-  window_.draw(*player_.get());
+  window_.draw(world_);
   window_.display();
 }
 

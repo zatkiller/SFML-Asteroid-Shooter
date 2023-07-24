@@ -9,7 +9,7 @@ namespace game {
 class World;
 class Entity : public sf::Drawable {
  public:
-  Entity(Configs::Textures tex_id, World& world);
+  Entity(Configs::Textures id, World& world);
   virtual ~Entity() = default;
   Entity(const Entity&) = delete;
   Entity& operator=(const Entity&) = delete;
@@ -30,7 +30,9 @@ class Entity : public sf::Drawable {
 
  protected:
   friend class Player;
+  friend class Saucer;
   friend class ShootPlayer;
+  friend class ShootSaucer;
 
   sf::Sprite sprite_;
   sf::Vector2f impulse_;
