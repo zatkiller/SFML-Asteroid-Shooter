@@ -33,6 +33,7 @@ class Entity : public sf::Drawable {
   friend class Saucer;
   friend class ShootPlayer;
   friend class ShootSaucer;
+  friend class Meteor;
 
   sf::Sprite sprite_;
   sf::Vector2f impulse_;

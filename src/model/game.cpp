@@ -1,5 +1,6 @@
 #include "game.h"
 
+#include "meteor.h"
 #include "saucer.h"
 #include "utils/random.h"
 
@@ -44,19 +45,24 @@ void Game::processEvents() {
 }
 
 void Game::update(sf::Time deltaTime) {
+  world_.update(deltaTime);
+
   if (!Configs::player) {
     Configs::player = std::make_shared<Player>(world_);
     Configs::player->setPosition(world_.getX() / 2, world_.getY() / 2);
     world_.add(Configs::player);
   }
 
-  world_.update(deltaTime);
-
   nextSaucer_ -= deltaTime;
 
   if (nextSaucer_ < sf::Time::Zero) {
     Saucer::newSaucer(world_);
     nextSaucer_ = sf::seconds(random(10.f, 60.f - Configs::level * 2));
+  }
+
+  if (world_.size() <= 1) {
+    ++Configs::level;
+    initLevel();
   }
 }
 
@@ -70,6 +76,35 @@ void Game::reset() {
   nextSaucer_ = sf::seconds(random(5.f, 6.f - Configs::level * 2));
   world_.clear();
   Configs::player = nullptr;
+}
+
+void Game::initLevel() {
+  int nb_meteors;
+  switch (Configs::level) {
+    case 1:
+      nb_meteors = 4;
+      break;
+    case 2:
+      nb_meteors = 5;
+      break;
+    case 3:
+      nb_meteors = 7;
+      break;
+    case 4:
+      nb_meteors = 9;
+      break;
+    default:
+      nb_meteors = 11;
+      break;
+  }
+  for (int i = 0; i < nb_meteors; ++i) {
+    auto meteor = std::make_shared<BigMeteor>(world_);
+    do {
+      meteor->setPosition(random(0.f, (float)world_.getX()),
+                          random(0.f, (float)world_.getY()));
+    } while (world_.hasCollided(*meteor.get()));
+    world_.add(meteor);
+  }
 }
 
 }  // namespace game

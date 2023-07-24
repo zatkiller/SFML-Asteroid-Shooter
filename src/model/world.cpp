@@ -60,7 +60,7 @@ const std::list<std::shared_ptr<Entity>>& World::getEntities() const {
 }
 
 void World::update(sf::Time deltaTime) {
-  if (entitiesTmp_.size() > 0) entities_.merge(entitiesTmp_);
+  if (entitiesTmp_.size() > 0) entities_.splice(entities_.end(), entitiesTmp_);
 
   for (auto& entity : entities_) {
     entity->update(deltaTime);

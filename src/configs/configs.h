@@ -24,7 +24,17 @@ class Configs {
     ShootPlayer,
     ShootSaucer,
     SmallSaucer,
-    BigSaucer
+    BigSaucer,
+    BigMeteor1,
+    BigMeteor2,
+    BigMeteor3,
+    BigMeteor4,
+    MediumMeteor1,
+    MediumMeteor2,
+    SmallMeteor1,
+    SmallMeteor2,
+    SmallMeteor3,
+    SmallMeteor4,
   };
 
   enum class Sounds : int {
@@ -35,6 +45,9 @@ class Configs {
     LaserEnemy,
     SaucerSpawn1,
     SaucerSpawn2,
+    Explosion1,
+    Explosion2,
+    Explosion3,
   };
 
   static ActionMap<int> playerInputs;

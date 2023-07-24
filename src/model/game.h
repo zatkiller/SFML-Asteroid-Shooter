@@ -18,6 +18,7 @@ class Game {
   Game& operator=(Game&&) = delete;
 
   void run(int minFramePerSeconds = 30);
+  void initLevel();
 
  private:
   void processEvents();
