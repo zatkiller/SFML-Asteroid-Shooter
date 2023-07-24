@@ -60,7 +60,7 @@ void Game::update(sf::Time deltaTime) {
     nextSaucer_ = sf::seconds(random(10.f, 60.f - Configs::level * 2));
   }
 
-  if (world_.size() <= 1 && Configs::player) {
+  if (world_.size() < 1) {
     ++Configs::level;
     initLevel();
   }
@@ -79,25 +79,26 @@ void Game::reset() {
 }
 
 void Game::initLevel() {
-  int nb_meteors;
+  int meteors;
   switch (Configs::level) {
     case 1:
-      nb_meteors = 4;
+      meteors = 4;
       break;
     case 2:
-      nb_meteors = 5;
+      meteors = 5;
       break;
     case 3:
-      nb_meteors = 7;
+      meteors = 7;
       break;
     case 4:
-      nb_meteors = 9;
+      meteors = 9;
       break;
     default:
-      nb_meteors = 11;
+      meteors = 11;
       break;
   }
-  for (int i = 0; i < nb_meteors; ++i) {
+
+  for (int i = 0; i < meteors; ++i) {
     auto meteor = std::make_shared<BigMeteor>(world_);
     do {
       meteor->setPosition(random(0.f, (float)world_.getX()),

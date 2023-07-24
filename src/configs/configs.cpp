@@ -1,14 +1,18 @@
 #include "configs.h"
 
 #include "events/action.h"
+#include "utils/random.h"
 
 namespace game {
 
 ActionMap<int> Configs::playerInputs;
 ResourceManager<sf::Texture, int> Configs::textures;
 ResourceManager<sf::SoundBuffer, int> Configs::sounds;
+ResourceManager<sf::Font, int> Configs::fonts;
+ResourceManager<sf::Music, int> Configs::musics;
 
-sf::Text Configs::score_txt_;
+sf::Text Configs::scoreTxt_;
+sf::Sprite Configs::sprLife_;
 std::shared_ptr<Player> Configs::player = nullptr;
 
 int Configs::lives = 0;
@@ -19,6 +23,27 @@ void Configs::initialize() {
   initPlayerInputs();
   initTextures();
   initSounds();
+  initMusic();
+  initFonts();
+
+  rand_init();
+  scoreTxt_.setFont(fonts.get(static_cast<int>(Fonts::Gui)));
+  scoreTxt_.setCharacterSize(24);
+
+  sprLife_.setTexture(textures.get(static_cast<int>(Textures::PlayerLife)));
+
+  musics.get(static_cast<int>(Music::Theme)).setLoop(true);
+  musics.get(static_cast<int>(Music::Theme)).play();
+
+  lives = level = score_ = -1;
+}
+
+void Configs::initFonts() {
+  fonts.load(static_cast<int>(Fonts::Gui), "media/font/trs-million.ttf");
+}
+
+void Configs::initMusic() {
+  musics.load(static_cast<int>(Music::Theme), "media/musics/theme.ogg");
 }
 
 void Configs::initPlayerInputs() {
@@ -68,6 +93,9 @@ void Configs::initTextures() {
                 "media/Meteor/Small3.png");
   textures.load(static_cast<int>(Textures::SmallMeteor4),
                 "media/Meteor/Small4.png");
+
+  textures.load(static_cast<int>(Textures::PlayerLife),
+                "media/Player/life.png");
 }
 
 void Configs::initSounds() {
@@ -96,9 +124,11 @@ void Configs::addScore(int score) {
   int old = score_;
   score_ += score * level;
   lives += score_ / 10000 - old / 10000;
-  score_txt_.setString(std::to_string(score_));
+  scoreTxt_.setString(std::to_string(score_));
 }
 
 int Configs::getScore() { return score_; }
+
+bool Configs::isGameOver() { return lives == 0; }
 
 }  // namespace game

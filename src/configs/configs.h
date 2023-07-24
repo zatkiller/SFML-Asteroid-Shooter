@@ -35,6 +35,7 @@ class Configs {
     SmallMeteor2,
     SmallMeteor3,
     SmallMeteor4,
+    PlayerLife,
   };
 
   enum class Sounds : int {
@@ -50,9 +51,19 @@ class Configs {
     Explosion3,
   };
 
+  enum class Music : int {
+    Theme,
+  };
+
+  enum class Fonts : int {
+    Gui,
+  };
+
   static ActionMap<int> playerInputs;
   static ResourceManager<sf::Texture, int> textures;
   static ResourceManager<sf::SoundBuffer, int> sounds;
+  static ResourceManager<sf::Font, int> fonts;
+  static ResourceManager<sf::Music, int> musics;
 
   static int lives;
   static int level;
@@ -69,15 +80,20 @@ class Configs {
   static int getScore();
   static void addScore(int score);
 
+  static bool isGameOver();
+
   static std::shared_ptr<Player> player;
 
  private:
   static int score_;
-  static sf::Text score_txt_;
+  static sf::Text scoreTxt_;
+  static sf::Sprite sprLife_;
 
   static void initPlayerInputs();
   static void initTextures();
   static void initSounds();
+  static void initFonts();
+  static void initMusic();
 };
 
 }  // namespace game
