@@ -15,7 +15,7 @@ sf::Text Configs::scoreTxt_;
 sf::Sprite Configs::sprLife_;
 std::shared_ptr<Player> Configs::player = nullptr;
 
-int Configs::lives = 0;
+int Configs::lives = 3;
 int Configs::level = 0;
 int Configs::score_ = 0;
 
@@ -129,6 +129,22 @@ void Configs::addScore(int score) {
 
 int Configs::getScore() { return score_; }
 
-bool Configs::isGameOver() { return lives == 0; }
+bool Configs::isGameOver() { return lives < 0; }
+
+void Configs::reset() {
+  level = 1;
+  lives = 3;
+
+  score_ = 0;
+  scoreTxt_.setString("0");
+}
+
+void Configs::draw(sf::RenderTarget& target) {
+  target.draw(scoreTxt_);
+  for (int i = 0; i < lives; ++i) {
+    sprLife_.setPosition(40 * i, 40);
+    target.draw(sprLife_);
+  }
+}
 
 }  // namespace game

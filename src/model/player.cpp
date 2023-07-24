@@ -60,6 +60,7 @@ void Player::shoot() {
 
 void Player::onDestroy() {
   Entity::onDestroy();
+  Configs::player = nullptr;
   Configs::lives--;
   world_.add(Configs::Sounds::Boom1);
 }

@@ -3,7 +3,7 @@
 
 int main(int argc, char* argv[]) {
   game::Configs::initialize();
-  game::Game game(1400, 900);
+  game::Game game;
 
   game.run();
 

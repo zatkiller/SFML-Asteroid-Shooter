@@ -10,7 +10,7 @@ namespace game {
 
 class Game {
  public:
-  Game(int x = 800, int y = 600);
+  Game(int x = 1200, int y = 900);
   ~Game() = default;
   Game(const Game&) = delete;
   Game& operator=(const Game&) = delete;

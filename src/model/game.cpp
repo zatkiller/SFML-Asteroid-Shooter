@@ -6,7 +6,15 @@
 
 namespace game {
 Game::Game(int x, int y)
-    : window_(sf::VideoMode(x, y), "Asteroid_Shooter_SFML"), world_(x, y) {}
+    : window_(sf::VideoMode(x, y), "Asteroid_Shooter_SFML"), world_(x, y) {
+  txt_.setFont(Configs::fonts.get(static_cast<int>(Configs::Fonts::Gui)));
+  txt_.setCharacterSize(70);
+  txt_.setString("Press any Key to start");
+
+  sf::FloatRect size = txt_.getGlobalBounds();
+  txt_.setOrigin(size.width / 2, size.height / 2);
+  txt_.setPosition(x / 2, y / 2);
+}
 
 // Minimum time steps
 void Game::run(int minFramePerSeconds) {
@@ -35,40 +43,51 @@ void Game::processEvents() {
     {
       if (event.key.code == sf::Keyboard::Escape) window_.close();
     }
-    if (Configs::player) {
+
+    if (Configs::isGameOver()) {
+      if (event.type == sf::Event::KeyPressed)  // keyboard input
+        reset();
+    } else if (!Configs::isGameOver() && Configs::player) {
       Configs::player->processEvent(event);
     }
   }
-  if (Configs::player) {
+  if (!Configs::isGameOver() && Configs::player) {
     Configs::player->processEvents();
   }
 }
 
 void Game::update(sf::Time deltaTime) {
-  world_.update(deltaTime);
+  if (!Configs::isGameOver()) {
+    world_.update(deltaTime);
 
-  if (!Configs::player) {
-    Configs::player = std::make_shared<Player>(world_);
-    Configs::player->setPosition(world_.getX() / 2, world_.getY() / 2);
-    world_.add(Configs::player);
-  }
+    if (!Configs::player) {
+      Configs::player = std::make_shared<Player>(world_);
+      Configs::player->setPosition(world_.getX() / 2, world_.getY() / 2);
+      world_.add(Configs::player);
+    }
 
-  nextSaucer_ -= deltaTime;
+    nextSaucer_ -= deltaTime;
 
-  if (nextSaucer_ < sf::Time::Zero) {
-    Saucer::newSaucer(world_);
-    nextSaucer_ = sf::seconds(random(10.f, 60.f - Configs::level * 2));
-  }
+    if (nextSaucer_ < sf::Time::Zero) {
+      Saucer::newSaucer(world_);
+      nextSaucer_ = sf::seconds(random(10.f, 60.f - Configs::level * 2));
+    }
 
-  if (world_.size() < 1) {
-    ++Configs::level;
-    initLevel();
+    if (world_.size() <= 1) {
+      ++Configs::level;
+      initLevel();
+    }
   }
 }
 
 void Game::render() {
   window_.clear();
-  window_.draw(world_);
+  if (Configs::isGameOver()) {
+    window_.draw(txt_);
+  } else {
+    window_.draw(world_);
+    Configs::draw(window_);
+  }
   window_.display();
 }
 
@@ -76,25 +95,27 @@ void Game::reset() {
   nextSaucer_ = sf::seconds(random(5.f, 6.f - Configs::level * 2));
   world_.clear();
   Configs::player = nullptr;
+  Configs::reset();
+  initLevel();
 }
 
 void Game::initLevel() {
   int meteors;
   switch (Configs::level) {
     case 1:
-      meteors = 4;
+      meteors = 2;
       break;
     case 2:
-      meteors = 5;
+      meteors = 4;
       break;
     case 3:
-      meteors = 7;
+      meteors = 6;
       break;
     case 4:
-      meteors = 9;
+      meteors = 8;
       break;
     default:
-      meteors = 11;
+      meteors = 10;
       break;
   }
 

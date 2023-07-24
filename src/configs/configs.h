@@ -76,6 +76,7 @@ class Configs {
   Configs& operator=(Configs&&) = default;
 
   static void initialize();
+  static void reset();
 
   static int getScore();
   static void addScore(int score);
@@ -83,6 +84,8 @@ class Configs {
   static bool isGameOver();
 
   static std::shared_ptr<Player> player;
+
+  static void draw(sf::RenderTarget& target);
 
  private:
   static int score_;
