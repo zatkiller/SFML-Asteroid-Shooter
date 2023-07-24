@@ -8,7 +8,7 @@ ActionMap<int> Configs::playerInputs;
 ResourceManager<sf::Texture, int> Configs::textures;
 ResourceManager<sf::SoundBuffer, int> Configs::sounds;
 
-int Configs::lives;
+int Configs::lives = 0;
 
 void Configs::initialize() {
   initPlayerInputs();
@@ -32,6 +32,8 @@ void Configs::initPlayerInputs() {
 
 void Configs::initTextures() {
   textures.load(static_cast<int>(Textures::Player), "media/Player/Ship.png");
+  textures.load(static_cast<int>(Textures::ShootPlayer),
+                "media/Shoot/Player.png");
 }
 
 void Configs::initSounds() {

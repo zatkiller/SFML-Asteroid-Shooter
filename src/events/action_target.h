@@ -18,7 +18,7 @@ class ActionTarget {
     bool res = false;
 
     for (auto& pair : eventsPoll_) {
-      if (pair.first == event) {
+      if (actionMap_.get(pair.first) == event) {
         pair.second(event);
         res = true;
         break;
@@ -40,10 +40,11 @@ class ActionTarget {
 
   void bind(const T& key, const FuncType& callback) {
     const Action& action = actionMap_.get(key);
-    if (action.type_ & static_cast<int>(Action::Type::RealTime))
+    if (action.type_ & static_cast<int>(Action::Type::RealTime)) {
       realTimeEvents_.emplace_back(key, callback);
-    else
+    } else {
       eventsPoll_.emplace_back(key, callback);
+    }
   }
 
   void unbind(const T& key) {

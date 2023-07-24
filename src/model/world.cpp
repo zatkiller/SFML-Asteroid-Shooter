@@ -1,6 +1,5 @@
 #include "world.h"
 
-#include "iostream"
 namespace game {
 
 World::World(float x, float y) : x_(x), y_(y) {}

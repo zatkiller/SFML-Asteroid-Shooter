@@ -18,7 +18,10 @@ class Configs {
     Hyperspace,
   };
 
-  enum class Textures : int { Player, ShootPlayer };
+  enum class Textures : int {
+    Player,
+    ShootPlayer,
+  };
 
   enum class Sounds : int {
     Boom,

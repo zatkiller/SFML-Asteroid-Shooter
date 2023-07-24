@@ -1,7 +1,5 @@
 #include "game.h"
 
-#include "iostream"
-
 namespace game {
 Game::Game(int x, int y)
     : window_(sf::VideoMode(x, y), "Asteroid_Shooter_SFML"),
@@ -37,6 +35,7 @@ void Game::processEvents() {
     {
       if (event.key.code == sf::Keyboard::Escape) window_.close();
     }
+    player_->processEvent(event);
   }
   player_->processEvents();
 }
