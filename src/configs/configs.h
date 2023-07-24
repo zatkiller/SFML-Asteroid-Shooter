@@ -34,6 +34,7 @@ class Configs {
   static ResourceManager<sf::SoundBuffer, int> sounds;
 
   static int lives;
+  static int level;
 
   Configs() = delete;
   ~Configs() = default;
@@ -44,7 +45,12 @@ class Configs {
 
   static void initialize();
 
+  static void addScore(int score);
+
  private:
+  static int score_;
+  static sf::Text score_txt_;
+
   static void initPlayerInputs();
   static void initTextures();
   static void initSounds();

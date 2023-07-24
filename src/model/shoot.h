@@ -9,7 +9,6 @@ namespace game {
 
 class Shoot : public Entity {
  public:
-  class Enemy {};
   class Meteor {};
 
   Shoot(Configs::Textures textures, World& world);

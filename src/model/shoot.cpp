@@ -1,5 +1,6 @@
 #include "shoot.h"
 
+#include "enemy.h"
 #include "utils/collision.h"
 #include "utils/random.h"
 
@@ -32,7 +33,7 @@ ShootPlayer::ShootPlayer(Player& from)
 }
 
 bool ShootPlayer::hasCollided(const Entity& other) const {
-  if (dynamic_cast<const ShootPlayer::Enemy*>(&other) != nullptr) {
+  if (dynamic_cast<const Enemy*>(&other) != nullptr) {
     return collisionTest(sprite_, other.sprite_);
   }
   return false;
